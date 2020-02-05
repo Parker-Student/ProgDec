@@ -26,8 +26,8 @@ namespace BDF.ProgramDec.PL
         }
     
         public virtual DbSet<tblDegreeType> tblDegreeTypes { get; set; }
-        public virtual DbSet<tblProgDec> tblProgDecs { get; set; }
         public virtual DbSet<tblProgram> tblPrograms { get; set; }
         public virtual DbSet<tblStudent> tblStudents { get; set; }
+        public virtual DbSet<tblProgDec> tblProgDecs { get; set; }
     }
 }

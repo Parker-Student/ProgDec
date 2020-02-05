@@ -6,9 +6,9 @@
     <edmx:Diagrams>
       <Diagram DiagramId="0a9fb740a092452aa31b2c327bfaa8be" Name="Diagram1">
         <EntityTypeShape EntityType="BDF.ProgramDec.DBModel.tblDegreeType" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BDF.ProgramDec.DBModel.tblProgDec" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="BDF.ProgramDec.DBModel.tblProgram" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="BDF.ProgramDec.DBModel.tblStudent" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDF.ProgramDec.DBModel.tblProgDec" Width="1.5" PointX="3.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
