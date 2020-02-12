@@ -57,6 +57,9 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="utProgram.cs" />
+    <Compile Include="utStudent.cs" />
+    <Compile Include="utProgDec.cs" />
     <Compile Include="utDegreeType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

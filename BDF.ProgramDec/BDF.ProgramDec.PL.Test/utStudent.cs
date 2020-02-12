@@ -6,18 +6,18 @@ using System.Linq;
 namespace BDF.ProgramDec.PL.Test
 {
     [TestClass]
-    public class utDegreeType
+    public class utStudent
     {
         [TestMethod]
         public void LoadTest()
         {
             ProgDecEntities dc = new ProgDecEntities();
 
-            // SELECT * FROM tblDegreeType - LINQ SQL
-            var results = from degreetype in dc.tblDegreeTypes
-                          select degreetype;
+            // SELECT * FROM tblStudent - LINQ SQL
+            var results = from student in dc.tblStudents
+                          select student;
 
-            int expected = 3;
+            int expected = 4;
             int actual = results.Count();
 
             Assert.AreEqual(expected, actual);
@@ -28,15 +28,17 @@ namespace BDF.ProgramDec.PL.Test
         {
             using (ProgDecEntities dc = new ProgDecEntities())
             {
-                // Make a new degreetype
-                tblDegreeType newrow = new tblDegreeType();
+                // Make a new student
+                tblStudent newrow = new tblStudent();
 
                 // Set the column values
                 newrow.Id = -99;
-                newrow.Description = "My new shiny degree type";
+                newrow.FirstName = "Brian";
+                newrow.LastName = "Foote";
+                newrow.StudentId= "123456789";
 
                 // Add the row
-                dc.tblDegreeTypes.Add(newrow);
+                dc.tblStudents.Add(newrow);
 
                 // Save the Changes
                 int results = dc.SaveChanges();
@@ -51,34 +53,36 @@ namespace BDF.ProgramDec.PL.Test
             using (ProgDecEntities dc = new ProgDecEntities())
             {
                 // Get the record that I want to update
-                // SELECT * FROM tblDegreeType WHERE  Id = -99
-                tblDegreeType row = (from dt in dc.tblDegreeTypes
+                // SELECT * FROM tblStudent WHERE  Id = -99
+                tblStudent row = (from dt in dc.tblStudents
                                      where dt.Id == -99
                                      select dt).FirstOrDefault();
 
-                if(row != null)
+                if (row != null)
                 {
                     // Change values
-                    row.Description = "New Description";
+                    row.FirstName = "Brian";
+                    row.LastName = "Bishop";
+                    row.StudentId = "9876543212";
                     int actual = dc.SaveChanges();
                     Assert.AreNotEqual(0, actual);
                 }
             }
         }
-        
+
         [TestMethod]
 
         public void DeleteTest()
         {
             using (ProgDecEntities dc = new ProgDecEntities())
             {
-                tblDegreeType row = (from dt in dc.tblDegreeTypes
+                tblStudent row = (from dt in dc.tblStudents
                                      where dt.Id == -99
                                      select dt).FirstOrDefault();
 
                 if (row != null)
                 {
-                    dc.tblDegreeTypes.Remove(row);
+                    dc.tblStudents.Remove(row);
                     int actual = dc.SaveChanges();
                     Assert.AreNotEqual(0, actual);
                 }
