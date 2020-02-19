@@ -15,6 +15,8 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "BDF.ProgramDec.DB", "BDF.Pr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BDF.ProgramDec.PL.Test", "BDF.ProgramDec.PL.Test\BDF.ProgramDec.PL.Test.csproj", "{D16E414D-B5A6-4818-B007-CEEA50613508}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BDF.ProgramDec.BL.Test", "BDF.ProgramDec.BL.Test\BDF.ProgramDec.BL.Test.csproj", "{FA78D1EE-BB4F-4EF8-9949-0B1CEDABDFFB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{D16E414D-B5A6-4818-B007-CEEA50613508}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D16E414D-B5A6-4818-B007-CEEA50613508}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D16E414D-B5A6-4818-B007-CEEA50613508}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA78D1EE-BB4F-4EF8-9949-0B1CEDABDFFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA78D1EE-BB4F-4EF8-9949-0B1CEDABDFFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA78D1EE-BB4F-4EF8-9949-0B1CEDABDFFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA78D1EE-BB4F-4EF8-9949-0B1CEDABDFFB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
