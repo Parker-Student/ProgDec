@@ -26,7 +26,7 @@ namespace BDF.ProgramDec.BL.Test
 
         public void InsertTest()
         {
-            ProgDec progDec = new ProgDec { ProgramId = 12, StudentId = 5 };
+            ProgDec progDec = new ProgDec { ProgramId = 12, StudentId = 4 };
             Assert.AreNotEqual(0, ProgDecManager.Insert(progDec));
         }
 
