@@ -9,6 +9,14 @@ namespace BDF.ProgramDec.PL.Test
     public class utDegreeType
     {
         [TestMethod]
+        public void RunAll()
+        {
+            LoadTest();
+            InsertTest();
+            UpdateTest();
+            DeleteTest();
+        }
+
         public void LoadTest()
         {
             ProgDecEntities dc = new ProgDecEntities();
@@ -23,7 +31,6 @@ namespace BDF.ProgramDec.PL.Test
             Assert.AreEqual(expected, actual);
         }
 
-        [TestMethod]
         public void InsertTest()
         {
             using (ProgDecEntities dc = new ProgDecEntities())
@@ -45,7 +52,6 @@ namespace BDF.ProgramDec.PL.Test
             }
         }
 
-        [TestMethod]
         public void UpdateTest()
         {
             using (ProgDecEntities dc = new ProgDecEntities())
@@ -66,8 +72,7 @@ namespace BDF.ProgramDec.PL.Test
             }
         }
         
-        [TestMethod]
-
+ 
         public void DeleteTest()
         {
             using (ProgDecEntities dc = new ProgDecEntities())
