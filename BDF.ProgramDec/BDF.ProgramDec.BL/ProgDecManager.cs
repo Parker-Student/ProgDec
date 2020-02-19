@@ -11,7 +11,7 @@ namespace BDF.ProgramDec.BL
     public static class ProgDecManager
     {
         public static int Insert(out int id, 
-                                 int programId,
+                                 int progDecId,
                                  int studentId)
         {
             try
@@ -20,7 +20,7 @@ namespace BDF.ProgramDec.BL
                 {
                     tblProgDec newrow = new tblProgDec();
 
-                    newrow.ProgramId = programId;
+                    newrow.ProgramId = progDecId;
                     newrow.StudentId = studentId;
                     newrow.ChangeDate = DateTime.Now;
                     newrow.Id = dc.tblProgDecs.Any() ? dc.tblProgDecs.Max(dt => dt.Id) + 1 : 1;
@@ -37,15 +37,15 @@ namespace BDF.ProgramDec.BL
             }
         }
 
-        public static int Insert(ProgDec program)
+        public static int Insert(ProgDec progDec)
         {
             try
             {
                 int id = 0;
                 int result = Insert(out id, 
-                                    program.ProgramId, 
-                                    program.StudentId);
-                program.Id = id;
+                                    progDec.ProgramId, 
+                                    progDec.StudentId);
+                progDec.Id = id;
                 return result;
             }
             catch (Exception ex)
@@ -57,7 +57,7 @@ namespace BDF.ProgramDec.BL
 
 
         public static int Update(int id, 
-                                 int programId,
+                                 int progDecId,
                                  int studentId)
         {
             try
@@ -68,7 +68,7 @@ namespace BDF.ProgramDec.BL
                                             where dt.Id == id
                                             select dt).FirstOrDefault();
 
-                    updaterow.ProgramId = programId;
+                    updaterow.ProgramId = progDecId;
                     updaterow.StudentId = studentId;
                     updaterow.ChangeDate = DateTime.Now;
                     return dc.SaveChanges();
@@ -80,11 +80,11 @@ namespace BDF.ProgramDec.BL
             }
         }
 
-        public static int Update(ProgDec program)
+        public static int Update(ProgDec progDec)
         {
-            return Update(program.Id,
-                          program.ProgramId,
-                          program.StudentId);
+            return Update(progDec.Id,
+                          progDec.ProgramId,
+                          progDec.StudentId);
         }
         public static int Delete(int id)
         {
@@ -112,10 +112,10 @@ namespace BDF.ProgramDec.BL
             {
                 using (ProgDecEntities dc = new ProgDecEntities())
                 {
-                    List<ProgDec> programs = new List<ProgDec>();
+                    List<ProgDec> progDecs = new List<ProgDec>();
                     foreach (tblProgDec p in dc.tblProgDecs)
                     {
-                        programs.Add(new ProgDec
+                        progDecs.Add(new ProgDec
                         {
                             Id = p.Id,
                             ProgramId = p.ProgramId,
@@ -123,7 +123,7 @@ namespace BDF.ProgramDec.BL
                             ChangeDate = p.ChangeDate
                         });
                     }
-                    return programs;
+                    return progDecs;
                 }
             }
             catch (Exception ex)

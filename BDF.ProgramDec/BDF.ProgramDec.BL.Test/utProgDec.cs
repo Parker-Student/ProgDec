@@ -37,9 +37,9 @@ namespace BDF.ProgramDec.BL.Test
             Assert.IsTrue(ProgDecManager.Update(progDec) > 0);
         }
 
-        public void DeleteTest()
+         public void DeleteTest()
         {
-            Assert.IsTrue(ProgDecManager.Delete(5) > 0);
+            Assert.IsTrue(ProgDecManager.Delete(6) > 0);
         }
     }
 }
