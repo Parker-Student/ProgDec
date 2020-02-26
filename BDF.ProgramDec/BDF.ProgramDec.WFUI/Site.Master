@@ -68,13 +68,31 @@
             </div>
         </nav>
 
-        <div class="container body-content">
-            <asp:ContentPlaceHolder ID="MainContent" runat="server">
-            </asp:ContentPlaceHolder>
-            <hr />
-            <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET Application</p>
-            </footer>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-2 sidebar rounded-top">
+                    <div class="header rounded-top">
+                        <h3>Programs</h3>
+                    </div>
+                    <div>
+                        <asp:Repeater ID="dpPrograms" runat="server">
+                            <ItemTemplate>
+                                <div class="programs">
+                                    <a href="#"><%# DataBinder.Eval(Container.DataItem, "Description") %></a>
+                                </div>
+                            </ItemTemplate>
+                        </asp:Repeater>
+                    </div>
+                </div>
+                <div class="col-md-9 main bond-content rounded-top">
+                    <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                    </asp:ContentPlaceHolder>
+                    <hr />
+                    <footer>
+                        <p>&copy; <%: DateTime.Now.Year %> - My ASP.NET Application</p>
+                    </footer>
+                </div>
+            </div>
         </div>
 
     </form>
