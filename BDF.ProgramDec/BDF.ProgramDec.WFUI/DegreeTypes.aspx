@@ -15,6 +15,7 @@
             <asp:DropDownList ID="ddlDegreeTypes"
                 runat="server"
                 CssClass="form-control"
+                AutoPostBack="true"
                 OnSelectedIndexChanged="ddlDegreeTypes_SelectedIndexChanged">
             </asp:DropDownList>
         </div>
