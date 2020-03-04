@@ -12,5 +12,17 @@ namespace BDF.ProgramDec.BL.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string StudentId { get; set; }
+
+        // Calculated Full Name
+        public string FullNameFirst
+        {
+            get { return FirstName + " " + LastName; }
+        }
+
+        public string FullNameLast
+        {
+            get { return LastName + ", " + FirstName; }
+        }
+
     }
 }

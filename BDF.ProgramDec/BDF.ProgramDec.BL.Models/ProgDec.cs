@@ -12,5 +12,9 @@ namespace BDF.ProgramDec.BL.Models
         public int ProgramId { get; set; }
         public int StudentId { get; set; }
         public DateTime ChangeDate { get; set; }
+        public string ProgramName { get; set; }
+        public string StudentName { get; set; }
+        public string DegreeTypeName { get; set; }
+
     }
 }

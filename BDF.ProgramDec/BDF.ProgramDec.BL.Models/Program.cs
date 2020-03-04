@@ -11,5 +11,6 @@ namespace BDF.ProgramDec.BL.Models
         public int Id { get; set; }
         public string Description { get; set; }
         public int DegreeTypeId { get; set; }
+        public string DegreeTypeName { get; set; }
     }
 }

@@ -64,6 +64,15 @@
                     <li class="nav-item">
                         <a class="nav-link" runat="server" href="~/Programs">Programs</a>
                     </li>
+                      <li class="nav-item">
+                        <a class="nav-link" runat="server" href="~/DegreeTypes">Degree Types</a>
+                    </li>
+                      <li class="nav-item">
+                        <a class="nav-link" runat="server" href="~/Students">Students</a>
+                    </li>
+                      <li class="nav-item">
+                        <a class="nav-link" runat="server" href="~/ProgDecList">Declarations</a>
+                    </li>
                 </ul>
             </div>
         </nav>
