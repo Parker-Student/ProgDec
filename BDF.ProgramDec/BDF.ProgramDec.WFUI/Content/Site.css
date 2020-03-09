@@ -41,6 +41,10 @@ textarea {
     background: linear-gradient(95deg, rgba(2,0,36,1) 0%, rgba(105,51,153,1) 35%, rgba(0,212,255,1) 100%);
 }
 
+.aquamarine {
+    background-color: aquamarine !important;
+}
+
 .main {
     margin: 10px;
     padding: 0px;
