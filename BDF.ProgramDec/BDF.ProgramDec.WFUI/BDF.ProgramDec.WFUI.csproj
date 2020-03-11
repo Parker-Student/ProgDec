@@ -126,6 +126,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="ProgDecList.aspx" />
+    <Content Include="ProgDecs.aspx" />
     <Content Include="Programs.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -295,6 +296,13 @@
     </Compile>
     <Compile Include="ProgDecList.aspx.designer.cs">
       <DependentUpon>ProgDecList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProgDecs.aspx.cs">
+      <DependentUpon>ProgDecs.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProgDecs.aspx.designer.cs">
+      <DependentUpon>ProgDecs.aspx</DependentUpon>
     </Compile>
     <Compile Include="Programs.aspx.cs">
       <DependentUpon>Programs.aspx</DependentUpon>
