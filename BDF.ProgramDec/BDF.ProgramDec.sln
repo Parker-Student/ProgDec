@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BDF.ProgramDec.BL.Test", "B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BDF.ProgramDec.MVCUI", "BDF.ProgramDec.MVCUI\BDF.ProgramDec.MVCUI.csproj", "{76084DF5-B712-49A9-AEAC-84AC2B72DB07}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BDF.Bands.UI", "BDF.Bands.UI\BDF.Bands.UI.csproj", "{3DE527A1-E650-4CB0-9C6C-048596B0FFC6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{76084DF5-B712-49A9-AEAC-84AC2B72DB07}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76084DF5-B712-49A9-AEAC-84AC2B72DB07}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76084DF5-B712-49A9-AEAC-84AC2B72DB07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DE527A1-E650-4CB0-9C6C-048596B0FFC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DE527A1-E650-4CB0-9C6C-048596B0FFC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DE527A1-E650-4CB0-9C6C-048596B0FFC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DE527A1-E650-4CB0-9C6C-048596B0FFC6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
