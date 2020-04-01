@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BDF.ProgramDec.PL.Test", "B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BDF.ProgramDec.BL.Test", "BDF.ProgramDec.BL.Test\BDF.ProgramDec.BL.Test.csproj", "{FA78D1EE-BB4F-4EF8-9949-0B1CEDABDFFB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BDF.ProgramDec.MVCUI", "BDF.ProgramDec.MVCUI\BDF.ProgramDec.MVCUI.csproj", "{76084DF5-B712-49A9-AEAC-84AC2B72DB07}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,6 +55,10 @@ Global
 		{FA78D1EE-BB4F-4EF8-9949-0B1CEDABDFFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FA78D1EE-BB4F-4EF8-9949-0B1CEDABDFFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FA78D1EE-BB4F-4EF8-9949-0B1CEDABDFFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76084DF5-B712-49A9-AEAC-84AC2B72DB07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76084DF5-B712-49A9-AEAC-84AC2B72DB07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76084DF5-B712-49A9-AEAC-84AC2B72DB07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76084DF5-B712-49A9-AEAC-84AC2B72DB07}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
