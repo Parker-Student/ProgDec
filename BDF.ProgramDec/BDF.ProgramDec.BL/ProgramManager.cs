@@ -105,17 +105,30 @@ namespace BDF.ProgramDec.BL
             {
                 using (ProgDecEntities dc = new ProgDecEntities())
                 {
-                    List<Program> programs = new List<Program>();
-                    foreach (tblProgram p in dc.tblPrograms)
+                    List<Program> results = new List<Program>();
+
+                    var programs = (from p in dc.tblPrograms
+                                    join dt in dc.tblDegreeTypes on p.DegreeTypeId equals dt.Id
+                                    orderby p.Description
+                                    select new
+                                    {
+                                        p.Id,
+                                        p.DegreeTypeId,
+                                        p.Description,
+                                        DegreeName = dt.Description
+                                    }).ToList();
+
+                    programs.ForEach(pdt => results.Add(new Program
                     {
-                        programs.Add(new Program
-                        {
-                            Id = p.Id,
-                            DegreeTypeId = p.DegreeTypeId,
-                            Description = p.Description
-                        });
-                    }
-                    return programs;
+
+                        Id = pdt.Id,
+                        DegreeTypeId = pdt.DegreeTypeId,
+                        Description = pdt.Description,
+                        DegreeName = pdt.DegreeName
+                    }));
+
+
+                    return results;
                 }
             }
             catch (Exception ex)
@@ -131,22 +144,36 @@ namespace BDF.ProgramDec.BL
             {
                 using (ProgDecEntities dc = new ProgDecEntities())
                 {
-                    tblProgram row = (from p in dc.tblPrograms
-                                      where p.Id == id
-                                      select p).FirstOrDefault();
+                    var pdt = (from p in dc.tblPrograms
+                               join dt in dc.tblDegreeTypes on p.DegreeTypeId equals dt.Id
+                               where p.Id == id
+                               select new
+                               {
+                                   p.Id,
+                                   p.DegreeTypeId,
+                                   p.Description,
+                                   DegreeName = dt.Description
+                               }).FirstOrDefault();
 
-                    if (row != null)
-                        return new Program
+                    if (pdt != null)
+                    {
+                        Program program = new Program
                         {
-                            Id = row.Id,
-                            DegreeTypeId = row.DegreeTypeId,
-                            Description = row.Description
+                            Id = pdt.Id,
+                            DegreeTypeId = pdt.DegreeTypeId,
+                            Description = pdt.Description,
+                            DegreeName = pdt.DegreeName
                         };
+                        return program;
+                    }
                     else
+                    {
                         throw new Exception("Row was not found.");
 
+                    }
                 }
             }
+
             catch (Exception ex)
             {
                 throw ex;

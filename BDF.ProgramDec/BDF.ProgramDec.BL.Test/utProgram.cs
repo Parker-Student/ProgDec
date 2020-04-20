@@ -22,6 +22,7 @@ namespace BDF.ProgramDec.BL.Test
             Assert.AreEqual(17, programs.Count);
         }
 
+
         public void InsertTest()
         {
             Program program = new Program { Description = "Basketweaving", DegreeTypeId = 3 };

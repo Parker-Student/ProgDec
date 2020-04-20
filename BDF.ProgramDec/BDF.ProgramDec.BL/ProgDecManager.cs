@@ -113,18 +113,41 @@ namespace BDF.ProgramDec.BL
                 using (ProgDecEntities dc = new ProgDecEntities())
                 {
                     List<ProgDec> progDecs = new List<ProgDec>();
-                    foreach (tblProgDec p in dc.tblProgDecs)
+
+                    var progdecs = (from pd in dc.tblProgDecs
+                                    join s in dc.tblStudents on pd.StudentId equals s.Id
+                                    join p in dc.tblPrograms on pd.ProgramId equals p.Id
+                                    join dt in dc.tblDegreeTypes on p.DegreeTypeId equals dt.Id
+                                    orderby s.LastName
+                                    select new
+                                    {
+                                        ProgDecId = pd.Id,
+                                        ProgramId = p.Id,
+                                        StudentId = s.Id,
+                                        pd.ChangeDate,
+                                        ProgramName = p.Description,
+                                        s.FirstName,
+                                        s.LastName,
+                                        DegreeTypeName = dt.Description
+                                    }).ToList();
+
+
+
+                    progdecs.ForEach(p => progDecs.Add(new Models.ProgDec
                     {
-                        progDecs.Add(new ProgDec
-                        {
-                            Id = p.Id,
+                        
+                            Id = p.ProgDecId,
                             ProgramId = p.ProgramId,
                             StudentId = p.StudentId,
+                            ProgramName = p.ProgramName,
+                            DegreeTypeName = p.DegreeTypeName,
+                            StudentName = p.LastName + ", " + p.FirstName,
                             ChangeDate = p.ChangeDate
-                        });
-                    }
+                        }));
                     return progDecs;
                 }
+                   
+                
             }
             catch (Exception ex)
             {
@@ -139,21 +162,42 @@ namespace BDF.ProgramDec.BL
             {
                 using (ProgDecEntities dc = new ProgDecEntities())
                 {
-                    tblProgDec row = (from p in dc.tblProgDecs
-                                      where p.Id == id
-                                      select p).FirstOrDefault();
+                    var progdec = (from pd in dc.tblProgDecs
+                                    join s in dc.tblStudents on pd.StudentId equals s.Id
+                                    join p in dc.tblPrograms on pd.ProgramId equals p.Id
+                                    join dt in dc.tblDegreeTypes on p.DegreeTypeId equals dt.Id
+                                   where pd.Id == id
+                                    select new
+                                    {
+                                        ProgDecId = pd.Id,
+                                        ProgramId = p.Id,
+                                        StudentId = s.Id,
+                                        pd.ChangeDate,
+                                        ProgramName = p.Description,
+                                        s.FirstName,
+                                        s.LastName,
+                                        DegreeTypeName = dt.Description
+                                    }).FirstOrDefault();
 
-                    if (row != null)
-                        return new ProgDec
+                    if (progdec != null)
+                    {
+                        Models.ProgDec progDec = new Models.ProgDec
                         {
-                            Id = row.Id,
-                            ProgramId = row.ProgramId,
-                            StudentId = row.StudentId,
-                            ChangeDate = row.ChangeDate
+                            Id = progdec.ProgDecId,
+                            ProgramId = progdec.ProgramId,
+                            StudentId = progdec.StudentId,
+                            ProgramName = progdec.ProgramName,
+                            DegreeTypeName = progdec.DegreeTypeName,
+                            StudentName = progdec.LastName + ", " + progdec.FirstName,
+                            ChangeDate = progdec.ChangeDate
                         };
-                    else
-                        throw new Exception("Row was not found.");
 
+                        return progDec;
+                    }
+                    else
+                    {
+                        throw new Exception("Row was not found");
+                    }
                 }
             }
             catch (Exception ex)
