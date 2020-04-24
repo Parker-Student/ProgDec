@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using BDF.ProgramDec.BL.Models;
 using BDF.ProgramDec.BL;
 using BDF.ProgramDec.MVCUI.ViewModels;
+using System.IO;
 
 namespace BDF.ProgramDec.MVCUI.Controllers
 {
@@ -17,6 +18,13 @@ namespace BDF.ProgramDec.MVCUI.Controllers
         {
             programs = ProgramManager.Load();
             return View(programs);
+        }
+
+        [ChildActionOnly]
+        public ActionResult Sidebar()
+        {
+            var programs = ProgramManager.Load();
+            return PartialView(programs);
         }
 
         // GET: Program/Details/5
@@ -43,13 +51,29 @@ namespace BDF.ProgramDec.MVCUI.Controllers
         {
             try
             {
+                if(pdts.File != null)
+                {
+                    pdts.Program.ImagePath = pdts.File.FileName;
+                    string target = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(pdts.File.FileName));
+                    if (!System.IO.File.Exists(target))
+                    {
+                        pdts.File.SaveAs(target);
+                        ViewBag.Message = "File Uploaded Successfully...";
+                    }
+                    else
+                    {
+                        ViewBag.Message = "File Already Exists...";
+                    }
+                }
+
                 // TODO: Add insert logic here
                 ProgramManager.Insert(pdts.Program);
                 return RedirectToAction("Index");
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                ViewBag.Message = ex.Message;
+                return View(pdts);
             }
         }
 
@@ -69,13 +93,28 @@ namespace BDF.ProgramDec.MVCUI.Controllers
         {
             try
             {
+                if (pdts.File != null)
+                {
+                    pdts.Program.ImagePath = pdts.File.FileName;
+                    string target = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(pdts.File.FileName));
+                    if (!System.IO.File.Exists(target))
+                    {
+                        pdts.File.SaveAs(target);
+                        ViewBag.Message = "File Uploaded Successfully...";
+                    }
+                    else
+                    {
+                        ViewBag.Message = "File Already Exists...";
+                    }
+                }
                 // TODO: Add update logic here
                 ProgramManager.Update(pdts.Program);
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                ViewBag.Message = ex.Message;
+                return View(pdts);
             }
         }
 

@@ -16,7 +16,13 @@ namespace BDF.ProgramDec.MVCUI.Controllers
         {
             var progdecs = ProgDecManager.Load();
 
-              return View(progdecs);
+            return View(progdecs);
+        }
+
+        public ActionResult Load(int id)
+        {
+            var progdecs = ProgDecManager.Load(id);
+            return View("Index", progdecs);
         }
 
         // GET: ProgDec/Details/5

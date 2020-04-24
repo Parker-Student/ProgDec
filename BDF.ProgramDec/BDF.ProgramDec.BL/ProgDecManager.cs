@@ -106,7 +106,12 @@ namespace BDF.ProgramDec.BL
             }
         }
 
-        public static List<ProgDec> Load()
+        public static List<Models.ProgDec> Load()
+        {
+           return Load(null);
+
+        }
+        public static List<ProgDec> Load(int? programId)
         {
             try
             {
@@ -118,6 +123,7 @@ namespace BDF.ProgramDec.BL
                                     join s in dc.tblStudents on pd.StudentId equals s.Id
                                     join p in dc.tblPrograms on pd.ProgramId equals p.Id
                                     join dt in dc.tblDegreeTypes on p.DegreeTypeId equals dt.Id
+                                    where (pd.ProgramId == programId || programId == null)
                                     orderby s.LastName
                                     select new
                                     {

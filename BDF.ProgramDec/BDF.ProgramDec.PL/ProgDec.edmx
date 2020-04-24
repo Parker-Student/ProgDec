@@ -28,6 +28,7 @@
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Description" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="DegreeTypeId" Type="int" Nullable="false" />
+          <Property Name="ImagePath" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="tblStudent">
           <Key>
@@ -62,6 +63,7 @@
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="DegreeTypeId" Type="Int32" Nullable="false" />
+          <Property Name="ImagePath" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="tblStudent">
           <Key>
@@ -104,6 +106,7 @@
           <EntitySetMapping Name="tblPrograms">
             <EntityTypeMapping TypeName="BDF.ProgramDec.DBModel.tblProgram">
               <MappingFragment StoreEntitySet="tblProgram">
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="DegreeTypeId" ColumnName="DegreeTypeId" />

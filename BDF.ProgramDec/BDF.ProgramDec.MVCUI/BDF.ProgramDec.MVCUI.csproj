@@ -151,6 +151,15 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="images\6f8b45f.jpg" />
+    <Content Include="images\calendar.gif" />
+    <Content Include="images\CSS.jpg" />
+    <Content Include="images\helpdesk.jpg" />
+    <Content Include="images\mobile.jpg" />
+    <Content Include="images\NetworkAdmin.jpg" />
+    <Content Include="images\SoftwareDeveloper.jpg" />
+    <Content Include="images\SysAdmin.jpg" />
+    <Content Include="images\WebDev.jpg" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -300,6 +309,7 @@
     <Content Include="Views\ProgDec\Create.cshtml" />
     <Content Include="Views\ProgDec\Edit.cshtml" />
     <Content Include="Views\ProgDec\Delete.cshtml" />
+    <Content Include="Views\Program\Sidebar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

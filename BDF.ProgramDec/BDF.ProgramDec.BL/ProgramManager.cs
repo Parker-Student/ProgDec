@@ -10,17 +10,17 @@ namespace BDF.ProgramDec.BL
 {
     public static class ProgramManager
     {
-        public static int Insert(out int id, string description, int programId)
+        public static int Insert(out int id, string description, int programId, string imagePath)
         {
             try
             {
                 using (ProgDecEntities dc = new ProgDecEntities())
                 {
                     tblProgram newrow = new tblProgram();
-
+                    newrow.Id = dc.tblPrograms.Any() ? dc.tblPrograms.Max(dt => dt.Id) + 1 : 1;
                     newrow.Description = description;
                     newrow.DegreeTypeId = programId;
-                    newrow.Id = dc.tblPrograms.Any() ? dc.tblPrograms.Max(dt => dt.Id) + 1 : 1;
+                    newrow.ImagePath = imagePath;
                     id = newrow.Id;
 
                     dc.tblPrograms.Add(newrow);
@@ -39,7 +39,7 @@ namespace BDF.ProgramDec.BL
             try
             {
                 int id = 0;
-                int result = Insert(out id, program.Description, program.DegreeTypeId);
+                int result = Insert(out id, program.Description, program.DegreeTypeId, program.ImagePath);
                 program.Id = id;
                 return result;
             }
@@ -51,7 +51,7 @@ namespace BDF.ProgramDec.BL
         }
 
 
-        public static int Update(int id, string description, int degreeTypeId)
+        public static int Update(int id, string description, int degreeTypeId, string imagePath)
         {
             try
             {
@@ -60,7 +60,7 @@ namespace BDF.ProgramDec.BL
                     tblProgram updaterow = (from dt in dc.tblPrograms
                                             where dt.Id == id
                                             select dt).FirstOrDefault();
-
+                    updaterow.ImagePath = imagePath;
                     updaterow.Description = description;
                     updaterow.DegreeTypeId = degreeTypeId;
 
@@ -77,7 +77,8 @@ namespace BDF.ProgramDec.BL
         {
             return Update(program.Id,
                           program.Description,
-                          program.DegreeTypeId);
+                          program.DegreeTypeId,
+                          program.ImagePath);
         }
         public static int Delete(int id)
         {
@@ -115,7 +116,8 @@ namespace BDF.ProgramDec.BL
                                         p.Id,
                                         p.DegreeTypeId,
                                         p.Description,
-                                        DegreeName = dt.Description
+                                        DegreeName = dt.Description,
+                                        p.ImagePath
                                     }).ToList();
 
                     programs.ForEach(pdt => results.Add(new Program
@@ -124,7 +126,8 @@ namespace BDF.ProgramDec.BL
                         Id = pdt.Id,
                         DegreeTypeId = pdt.DegreeTypeId,
                         Description = pdt.Description,
-                        DegreeName = pdt.DegreeName
+                        DegreeName = pdt.DegreeName,
+                        ImagePath = pdt.ImagePath
                     }));
 
 
@@ -152,7 +155,8 @@ namespace BDF.ProgramDec.BL
                                    p.Id,
                                    p.DegreeTypeId,
                                    p.Description,
-                                   DegreeName = dt.Description
+                                   DegreeName = dt.Description,
+                                   p.ImagePath
                                }).FirstOrDefault();
 
                     if (pdt != null)
@@ -162,7 +166,8 @@ namespace BDF.ProgramDec.BL
                             Id = pdt.Id,
                             DegreeTypeId = pdt.DegreeTypeId,
                             Description = pdt.Description,
-                            DegreeName = pdt.DegreeName
+                            DegreeName = pdt.DegreeName,
+                            ImagePath = pdt.ImagePath
                         };
                         return program;
                     }

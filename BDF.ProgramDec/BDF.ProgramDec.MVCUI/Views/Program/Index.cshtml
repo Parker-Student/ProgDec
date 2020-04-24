@@ -5,13 +5,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
 
-<p>
+<p class="btn btn-default btn-outline-primary">
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
+        <th>
+
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.Description)
         </th>
@@ -24,6 +26,9 @@
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            <img class="imageprop" src="~/images/@item.ImagePath" />
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Description)
         </td>
