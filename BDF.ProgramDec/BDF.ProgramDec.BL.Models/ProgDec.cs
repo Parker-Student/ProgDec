@@ -22,5 +22,12 @@ namespace BDF.ProgramDec.BL.Models
         [DisplayName("Degree Type Name")]
         public string DegreeTypeName { get; set; }
 
+        public List<Advisor> Advisors { get; set; } 
+
+        public ProgDec()
+        {
+            Advisors = new List<Advisor>();
+        }
+
     }
 }

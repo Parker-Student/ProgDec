@@ -26,6 +26,7 @@ namespace BDF.ProgramDec.BL
                     newrow.Id = dc.tblProgDecs.Any() ? dc.tblProgDecs.Max(dt => dt.Id) + 1 : 1;
                     id = newrow.Id;
 
+                 
                     dc.tblProgDecs.Add(newrow);
                     return dc.SaveChanges();
 
@@ -96,6 +97,8 @@ namespace BDF.ProgramDec.BL
                                             where dt.Id == id
                                             select dt).FirstOrDefault();
 
+                    
+
                     dc.tblProgDecs.Remove(deleterow);
                     return dc.SaveChanges();
                 }
@@ -111,7 +114,7 @@ namespace BDF.ProgramDec.BL
            return Load(null);
 
         }
-        public static List<ProgDec> Load(int? programId)
+        public static List<Models.ProgDec> Load(int? programId)
         {
             try
             {
@@ -162,7 +165,7 @@ namespace BDF.ProgramDec.BL
             }
         }
 
-        public static ProgDec LoadById(int id)
+        public static Models.ProgDec LoadById(int id)
         {
             try
             {
@@ -212,5 +215,11 @@ namespace BDF.ProgramDec.BL
             }
         }
 
+        public static List<Advisor> LoadAdvisors (int progDecId)
+        {
+            return AdvisorManager.Load(progDecId);
+        }
+    
+    
     }
 }

@@ -40,6 +40,7 @@ namespace BDF.ProgramDec.MVCUI.Controllers
             pps.ProgDec = new BL.Models.ProgDec();
             pps.Programs = ProgramManager.Load();
             pps.Students = StudentManager.Load();
+            pps.Advisors = AdvisorManager.Load(); //load them all
 
 
             return View(pps);
@@ -51,10 +52,8 @@ namespace BDF.ProgramDec.MVCUI.Controllers
         {
             try
             {
-
-                // TODO: Add insert logic here
                 ProgDecManager.Insert(pps.ProgDec);
-
+                pps.AdvisorIds.ToList().ForEach(a => ProgDecAdvisorManager.Add(pps.ProgDec.Id, a));
                 return RedirectToAction("Index");
             }
             catch
@@ -71,7 +70,14 @@ namespace BDF.ProgramDec.MVCUI.Controllers
             pps.ProgDec = ProgDecManager.LoadById(id);
             pps.Programs = ProgramManager.Load();
             pps.Students = StudentManager.Load();
+            
+            pps.Advisors = AdvisorManager.Load(); //load them all
 
+            pps.ProgDec.Advisors = ProgDecManager.LoadAdvisors(id);
+            pps.AdvisorIds = pps.ProgDec.Advisors.Select(a => a.Id); //Select the ids
+
+            //Put Existing Advisors into Session
+            Session["advisorids"] = pps.AdvisorIds;
 
             return View(pps);
            
@@ -83,6 +89,25 @@ namespace BDF.ProgramDec.MVCUI.Controllers
         {
             try
             {
+                // Deal with the Advisors
+                IEnumerable<int> oldadvisorids = new List<int>();
+                 if(Session["advisorids"] != null)
+                            oldadvisorids = (IEnumerable<int>)Session["advisorids"];
+
+                IEnumerable<int> newadvisorids = new List<int>();
+                if (pps.AdvisorIds != null)
+                    newadvisorids = pps.AdvisorIds;
+
+                //Identify the deletes
+                IEnumerable<int> deletes = oldadvisorids.Except(newadvisorids);
+
+                //Identify the adds
+                IEnumerable<int> adds = newadvisorids.Except(oldadvisorids);
+
+                deletes.ToList().ForEach(d => ProgDecAdvisorManager.Delete(id, d));
+                adds.ToList().ForEach(a => ProgDecAdvisorManager.Add(id, a));
+
+
                 // TODO: Add update logic here
                 ProgDecManager.Update(pps.ProgDec);
                 return RedirectToAction("Index");
@@ -103,11 +128,13 @@ namespace BDF.ProgramDec.MVCUI.Controllers
 
         // POST: ProgDec/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, BL.Models.ProgDec progdec)
+        public ActionResult Delete(int id, BL.Models.ProgDec progDec)
         {
             try
             {
                 // TODO: Add delete logic here
+                progDec.Advisors = ProgDecManager.LoadAdvisors(id);
+                progDec.Advisors.ForEach(a => ProgDecAdvisorManager.Delete(id, a.Id));
                 ProgDecManager.Delete(id);
                 return RedirectToAction("Index");
             }
