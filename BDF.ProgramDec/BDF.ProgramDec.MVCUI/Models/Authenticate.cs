@@ -7,5 +7,14 @@ namespace BDF.ProgramDec.MVCUI.Models
 {
     public static class Authenticate
     {
+        public static bool IsAuthenticated()
+        {
+            if(HttpContext.Current.Session == null)
+            
+                return false;
+                else
+                    return HttpContext.Current.Session["user"] != null;
+            
+        }
     }
 }

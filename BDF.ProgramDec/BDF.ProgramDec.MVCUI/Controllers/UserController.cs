@@ -12,13 +12,14 @@ namespace BDF.ProgramDec.MVCUI.Controllers
     public class UserController : Controller
     {
 
-        public ActionResult Login()
+        public ActionResult Login(string returnurl)
         {
+            ViewBag.ReturnUrl = returnurl;
             return View();
         }
 
         [HttpPost]
-        public ActionResult Login(User user)
+        public ActionResult Login(User user, string returnurl)
         {
             try
             {
@@ -26,7 +27,8 @@ namespace BDF.ProgramDec.MVCUI.Controllers
                 {
                     //Login worked. Save user to session.
                     Session["user"] = user;
-                    return RedirectToAction("Index", "ProgDec");
+                    // return RedirectToAction("Index", "ProgDec");
+                    return Redirect(returnurl);
                 }
                 ViewBag.Message = "Sorry no soup for you.";
                 return View(user);

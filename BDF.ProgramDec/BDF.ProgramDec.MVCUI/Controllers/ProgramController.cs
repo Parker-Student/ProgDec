@@ -7,6 +7,7 @@ using BDF.ProgramDec.BL.Models;
 using BDF.ProgramDec.BL;
 using BDF.ProgramDec.MVCUI.ViewModels;
 using System.IO;
+using BDF.ProgramDec.MVCUI.Models;
 
 namespace BDF.ProgramDec.MVCUI.Controllers
 {
@@ -16,8 +17,17 @@ namespace BDF.ProgramDec.MVCUI.Controllers
         // GET: Program
         public ActionResult Index()
         {
-            programs = ProgramManager.Load();
-            return View(programs);
+            if (Authenticate.IsAuthenticated())
+            {
+                programs = ProgramManager.Load();
+                return View(programs);
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+
+            }
+
         }
 
         [ChildActionOnly]
@@ -37,12 +47,21 @@ namespace BDF.ProgramDec.MVCUI.Controllers
         // GET: Program/Create
         public ActionResult Create()
         {
-            ProgramDegreeTypes pdts = new ProgramDegreeTypes();
+            if (Authenticate.IsAuthenticated())
+            {
 
-            pdts.DegreeTypes = DegreeTypeManager.Load();
-            pdts.Program = new Program();
+                ProgramDegreeTypes pdts = new ProgramDegreeTypes();
 
-            return View(pdts);
+                pdts.DegreeTypes = DegreeTypeManager.Load();
+                pdts.Program = new Program();
+
+                return View(pdts);
+            }
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+
+            }
         }
 
         // POST: Program/Create
@@ -51,7 +70,7 @@ namespace BDF.ProgramDec.MVCUI.Controllers
         {
             try
             {
-                if(pdts.File != null)
+                if (pdts.File != null)
                 {
                     pdts.Program.ImagePath = pdts.File.FileName;
                     string target = Path.Combine(Server.MapPath("~/images"), Path.GetFileName(pdts.File.FileName));
@@ -70,7 +89,7 @@ namespace BDF.ProgramDec.MVCUI.Controllers
                 ProgramManager.Insert(pdts.Program);
                 return RedirectToAction("Index");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ViewBag.Message = ex.Message;
                 return View(pdts);
@@ -80,11 +99,21 @@ namespace BDF.ProgramDec.MVCUI.Controllers
         // GET: Program/Edit/5
         public ActionResult Edit(int id)
         {
-            ProgramDegreeTypes pdts = new ProgramDegreeTypes();
-            pdts.DegreeTypes = DegreeTypeManager.Load();
-            pdts.Program = ProgramManager.LoadById(id); 
+            if (Authenticate.IsAuthenticated())
+            {
+                ProgramDegreeTypes pdts = new ProgramDegreeTypes();
+                pdts.DegreeTypes = DegreeTypeManager.Load();
+                pdts.Program = ProgramManager.LoadById(id);
 
-            return View(pdts);
+                return View(pdts);
+            }
+
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+
+            }
+
         }
 
         // POST: Program/Edit/5
@@ -121,10 +150,20 @@ namespace BDF.ProgramDec.MVCUI.Controllers
         // GET: Program/Delete/5
         public ActionResult Delete(int id)
         {
-            Program program = ProgramManager.LoadById(id);
-            return View(program);
-        }
+            if (Authenticate.IsAuthenticated())
+            {
+                Program program = ProgramManager.LoadById(id);
+                return View(program);
+            }
 
+
+            else
+            {
+                return RedirectToAction("Login", "User", new { returnurl = HttpContext.Request.Url });
+
+
+            }
+        }
         // POST: Program/Delete/5
         [HttpPost]
         public ActionResult Delete(int id, Program program)
