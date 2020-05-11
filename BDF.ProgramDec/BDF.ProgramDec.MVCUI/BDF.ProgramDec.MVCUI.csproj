@@ -134,6 +134,7 @@
     <Compile Include="Controllers\ProgDecController.cs" />
     <Compile Include="Controllers\ProgramController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -310,6 +311,8 @@
     <Content Include="Views\ProgDec\Edit.cshtml" />
     <Content Include="Views\ProgDec\Delete.cshtml" />
     <Content Include="Views\Program\Sidebar.cshtml" />
+    <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\User\Logout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

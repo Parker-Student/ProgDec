@@ -12,6 +12,22 @@
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Name" Type="nchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <EntityType Name="tblDegreeType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblProgDec">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="ProgramId" Type="int" Nullable="false" />
+          <Property Name="StudentId" Type="int" Nullable="false" />
+          <Property Name="ChangeDate" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="tblProgDecAdvisor">
           <Key>
             <PropertyRef Name="Id" />
@@ -20,47 +36,60 @@
           <Property Name="ProgDecId" Type="int" Nullable="false" />
           <Property Name="AdvisorId" Type="int" Nullable="false" />
         </EntityType>
-        <EntityContainer Name="BDFProgramDecDBModelStoreContainer">
-          <EntitySet Name="tblAdvisor" EntityType="Self.tblAdvisor" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="tblProgDecAdvisor" EntityType="Self.tblProgDecAdvisor" Schema="dbo" store:Type="Tables" />
-        </EntityContainer>
-      </Schema></edmx:StorageModels>
-    <!-- CSDL content -->
-    <edmx:ConceptualModels>
-      <Schema Namespace="BDF.ProgramDec.DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="tblDegreeType">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-        </EntityType>
         <EntityType Name="tblProgram">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="DegreeTypeId" Type="Int32" Nullable="false" />
-          <Property Name="ImagePath" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="DegreeTypeId" Type="int" Nullable="false" />
+          <Property Name="ImagePath" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="tblStudent">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="StudentId" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="StudentId" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
-        <EntityContainer Name="ProgDecEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="tblDegreeTypes" EntityType="Self.tblDegreeType" />
-          <EntitySet Name="tblPrograms" EntityType="Self.tblProgram" />
-          <EntitySet Name="tblStudents" EntityType="Self.tblStudent" />
-          <EntitySet Name="tblProgDecs" EntityType="BDF.ProgramDec.DBModel.tblProgDec" />
-          <EntitySet Name="tblAdvisors" EntityType="BDF.ProgramDec.DBModel.tblAdvisor" />
-          <EntitySet Name="tblProgDecAdvisors" EntityType="BDF.ProgramDec.DBModel.tblProgDecAdvisor" />
+        <EntityType Name="tblUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="UserPass" Type="varchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="BDFProgramDecDBModelStoreContainer">
+          <EntitySet Name="tblAdvisor" EntityType="Self.tblAdvisor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblDegreeType" EntityType="Self.tblDegreeType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblProgDec" EntityType="Self.tblProgDec" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblProgDecAdvisor" EntityType="Self.tblProgDecAdvisor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblProgram" EntityType="Self.tblProgram" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblStudent" EntityType="Self.tblStudent" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblUser" EntityType="Self.tblUser" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BDF.ProgramDec.DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ProgDecEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblDegreeTypes" EntityType="BDF.ProgramDec.DBModel.tblDegreeType" />
+          <EntitySet Name="tblProgDecs" EntityType="BDF.ProgramDec.DBModel.tblProgDec" />
+          <EntitySet Name="tblPrograms" EntityType="BDF.ProgramDec.DBModel.tblProgram" />
+          <EntitySet Name="tblStudents" EntityType="BDF.ProgramDec.DBModel.tblStudent" />
+        </EntityContainer>
+        <EntityType Name="tblDegreeType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="tblProgDec">
           <Key>
             <PropertyRef Name="Id" />
@@ -70,40 +99,64 @@
           <Property Name="StudentId" Type="Int32" Nullable="false" />
           <Property Name="ChangeDate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
-        <EntityType Name="tblAdvisor">
+        <EntityType Name="tblProgram">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DegreeTypeId" Type="Int32" Nullable="false" />
+          <Property Name="ImagePath" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
-        <EntityType Name="tblProgDecAdvisor">
+        <EntityType Name="tblStudent">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="ProgDecId" Type="Int32" Nullable="false" />
-          <Property Name="AdvisorId" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="StudentId" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
         </EntityType>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="BDFProgramDecDBModelStoreContainer" CdmEntityContainer="ProgDecEntities">
-          <EntitySetMapping Name="tblAdvisors">
-            <EntityTypeMapping TypeName="BDF.ProgramDec.DBModel.tblAdvisor">
-              <MappingFragment StoreEntitySet="tblAdvisor">
-                <ScalarProperty Name="Name" ColumnName="Name" />
+          <EntitySetMapping Name="tblDegreeTypes">
+            <EntityTypeMapping TypeName="BDF.ProgramDec.DBModel.tblDegreeType">
+              <MappingFragment StoreEntitySet="tblDegreeType">
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="tblProgDecAdvisors">
-            <EntityTypeMapping TypeName="BDF.ProgramDec.DBModel.tblProgDecAdvisor">
-              <MappingFragment StoreEntitySet="tblProgDecAdvisor">
-                <ScalarProperty Name="AdvisorId" ColumnName="AdvisorId" />
-                <ScalarProperty Name="ProgDecId" ColumnName="ProgDecId" />
+          <EntitySetMapping Name="tblProgDecs">
+            <EntityTypeMapping TypeName="BDF.ProgramDec.DBModel.tblProgDec">
+              <MappingFragment StoreEntitySet="tblProgDec">
+                <ScalarProperty Name="ChangeDate" ColumnName="ChangeDate" />
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="ProgramId" ColumnName="ProgramId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblPrograms">
+            <EntityTypeMapping TypeName="BDF.ProgramDec.DBModel.tblProgram">
+              <MappingFragment StoreEntitySet="tblProgram">
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
+                <ScalarProperty Name="DegreeTypeId" ColumnName="DegreeTypeId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblStudents">
+            <EntityTypeMapping TypeName="BDF.ProgramDec.DBModel.tblStudent">
+              <MappingFragment StoreEntitySet="tblStudent">
+                <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -69,6 +69,7 @@
     <Build Include="Tables\tblProgDec.sql" />
     <Build Include="Tables\tblAdvisor.sql" />
     <Build Include="Tables\tblProgDecAdvisor.sql" />
+    <Build Include="Tables\tblUser.sql" />
   </ItemGroup>
   <ItemGroup>
     <PreDeploy Include="Pre-Deployment\Script.PreDeployment1.sql" />
