@@ -7,8 +7,9 @@
 
 
 <p class="text-danger">@ViewBag.Message</p>
+@*@using (Html.BeginForm("Edit", "Program", FormMethod.Post, new { enctype = "multipart/form-data" }))*@
 
-@using (Html.BeginForm("Edit", "Program", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@using (Html.BeginForm("Update", "Program", FormMethod.Post, new { enctype = "multipart/form-data" }))
 
 {
     @Html.AntiForgeryToken()
@@ -38,7 +39,7 @@
             @Html.LabelFor(model => model.Program.ImagePath, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <img src="~/images/@Model.Program.ImagePath" id="programimage" class="imagepropmed" alt="@Model.Program.Description" onclick="on('/images/@Model.Program.ImagePath');" /> <br /><br />
-                <input type="file" name="File" id="File" accept="image/*" onchange="loadFile(event)"/>
+                <input type="file" name="File" id="File" accept="image/*" onchange="loadFile(event)" />
                 @Html.ValidationMessageFor(model => model.Program.DegreeTypeId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -64,7 +65,7 @@
 </script>
 
 @*@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}*@
+        @Scripts.Render("~/bundles/jqueryval")
+    }*@
 
 

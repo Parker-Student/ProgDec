@@ -8,11 +8,15 @@ using BDF.ProgramDec.BL;
 using BDF.ProgramDec.MVCUI.ViewModels;
 using System.IO;
 using BDF.ProgramDec.MVCUI.Models;
+using System.Net.Http;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace BDF.ProgramDec.MVCUI.Controllers
 {
     public class ProgramController : Controller
     {
+        #region "Pre-WebAPI"
         List<Program> programs;
         // GET: Program
         public ActionResult Index()
@@ -20,7 +24,10 @@ namespace BDF.ProgramDec.MVCUI.Controllers
             if (Authenticate.IsAuthenticated())
             {
                 programs = ProgramManager.Load();
+                ViewBag.Source = "Index";
+
                 return View(programs);
+            
             }
             else
             {
@@ -180,5 +187,155 @@ namespace BDF.ProgramDec.MVCUI.Controllers
                 return View();
             }
         }
+        #endregion
+
+        #region "WebAPI"
+        private static HttpClient InitializeClient()
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:50409/api/");
+            return client;
+        }
+
+        public ActionResult Get()
+        {
+            HttpClient client = InitializeClient();
+
+
+            //Do the actual call to the WebAPI
+            HttpResponseMessage response = client.GetAsync("Program").Result;
+
+            //Parse the result
+            string result = response.Content.ReadAsStringAsync().Result;
+
+            //Parse the result into generic objects
+            dynamic items = (JArray)JsonConvert.DeserializeObject(result);
+
+            //Parse the items into a list of program
+            List<Program> programs = items.ToObject<List<Program>>();
+
+            ViewBag.Source = "Get";
+            return View("Index", programs);
+        }
+
+        public ActionResult GetOne(int id)
+        {
+            HttpClient client = InitializeClient();
+
+
+            //Do the actual call to the WebAPI
+            HttpResponseMessage response = client.GetAsync("Program/" +id).Result;
+
+            //Parse the result
+            string result = response.Content.ReadAsStringAsync().Result;
+
+            //Parse the result into generic objects
+            Program program = JsonConvert.DeserializeObject<Program>(result);
+
+            return View("Details", program);
+        }
+
+        public ActionResult Insert()
+        {
+            HttpClient client = InitializeClient();
+
+            ProgramDegreeTypes pdts = GetDegreeTypes(client);
+            
+            pdts.Program = new Program();
+
+            return View("Create", pdts);
+        }
+        [HttpPost]
+        public ActionResult Insert(ProgramDegreeTypes pdts)
+        {
+            try
+            {
+                HttpClient client = InitializeClient();
+                HttpResponseMessage response = client.PostAsJsonAsync("Program", pdts.Program).Result;
+                return RedirectToAction("Get");
+            }
+            catch (Exception ex)
+            {
+
+                ViewBag.Error = ex.Message;
+                return View("Create", pdts);
+            }
+          
+            
+        }
+        public ActionResult Update(int id)
+        {
+            HttpClient client = InitializeClient();
+
+            ProgramDegreeTypes pdts = GetDegreeTypes(client);
+
+            HttpResponseMessage response = client.GetAsync("Program/" + id).Result;
+            string result = response.Content.ReadAsStringAsync().Result;
+            Program program = JsonConvert.DeserializeObject<Program>(result);
+
+            return View("Edit", pdts);
+
+        }
+
+        private static ProgramDegreeTypes GetDegreeTypes(HttpClient client)
+        {
+            ProgramDegreeTypes pdts = new ProgramDegreeTypes();
+            pdts.DegreeTypes = new List<DegreeType>();
+            HttpResponseMessage response = client.GetAsync("DegreeType").Result;
+            string result = response.Content.ReadAsStringAsync().Result;
+            dynamic items = (JArray)JsonConvert.DeserializeObject(result);
+            pdts.DegreeTypes = items.ToObject<List<DegreeType>>();
+            return pdts;
+        }
+
+        [HttpPost]
+        public ActionResult Update(ProgramDegreeTypes pdts, int id)
+        {
+            try
+            {
+                HttpClient client = InitializeClient();
+                HttpResponseMessage response = client.PutAsJsonAsync("Program/" + id, pdts.Program).Result;
+                return RedirectToAction("Get");
+            }
+            catch (Exception ex)
+            {
+
+                ViewBag.Error = ex.Message;
+                return View("Edit", pdts);
+            }
+
+        }
+
+        public ActionResult Remove(int id)
+        {
+            HttpClient client = InitializeClient();
+            HttpResponseMessage response = client.GetAsync("Program/" + id).Result;
+            string result = response.Content.ReadAsStringAsync().Result;
+            Program program = JsonConvert.DeserializeObject<Program>(result);
+            return View("Delete", program);
+        }
+
+        [HttpPost]
+        public ActionResult Remove(int id, Program program)
+        {
+            try
+            {
+                HttpClient client = InitializeClient();
+                HttpResponseMessage response = client.DeleteAsync("Program/" + id).Result;
+                return RedirectToAction("Get");
+
+
+            }
+            catch (Exception ex)
+            {
+
+                ViewBag.Error = ex.Message;
+                return View("Delete", program);
+            }
+        }
+        #endregion
+
     }
+
+
 }
